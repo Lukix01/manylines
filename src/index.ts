@@ -3,7 +3,7 @@ import glob from 'glob';
 
 export default function Manylines(): void {
   const args: string[] = process.argv.slice(2);
-  const path = './test';
+  const path = args[0];
   const fileList: any[] = [];
   let linesOfCode: number = 0;
 
