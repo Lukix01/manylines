@@ -9,7 +9,7 @@ export default function Manylines(): void {
   const fileList: any[] = [];
   let linesOfCode: number = 0;
 
-  glob(path + '/**/*+(.tsx|.ts|.jsx|.js|.css|.scss)', { ignore: [ path + '/**/*node_modules/**/*' ] }, (er, files): void => {
+  glob(path + '/**/*+(.tsx|.ts|.jsx|.js|.py|.java|.css|.scss)', { ignore: [ path + '/**/*node_modules/**/*' ] }, (er, files): void => {
     for (const file of files) {
       if (!fs.lstatSync(file).isDirectory()) {
         const data: string = fs.readFileSync(file, { encoding: 'utf8', flag: 'r' });

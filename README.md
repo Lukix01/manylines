@@ -3,6 +3,8 @@
 ## Currently supported languages
 - TypeScript (.ts | .tsx)
 - JavaScript (.js | .jsx)
+- Java (.java)
+- Python (.py)
 
 ## Install
 ```npm install -g manylines```
