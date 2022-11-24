@@ -3,10 +3,15 @@
 import fs from 'node:fs';
 import glob from 'glob';
 
+type File = {
+  file: string;
+  lines: number;
+};
+
 export default function Manylines(): void {
   const args: string[] = process.argv.slice(2);
   const path: string = args[0];
-  let fileList: any[] = [];
+  let fileList: File[] = [];
   let linesOfCode: number = 0;
 
   glob(path + '/**/*+(.tsx|.ts|.jsx|.js|.py|.java|.css|.scss)', { ignore: [ path + '/**/*node_modules/**/*' ] }, (er, files): void => {
