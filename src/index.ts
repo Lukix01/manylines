@@ -6,7 +6,7 @@ import glob from 'glob';
 export default function Manylines(): void {
   const args: string[] = process.argv.slice(2);
   const path: string = args[0];
-  const fileList: any[] = [];
+  let fileList: any[] = [];
   let linesOfCode: number = 0;
 
   glob(path + '/**/*+(.tsx|.ts|.jsx|.js|.py|.java|.css|.scss)', { ignore: [ path + '/**/*node_modules/**/*' ] }, (er, files): void => {
@@ -18,6 +18,8 @@ export default function Manylines(): void {
         linesOfCode += lines;
       }
     }
+
+    fileList = fileList.sort((a, b): number => b.lines - a.lines);
 
     if (args[1] === '--files') {
       console.log(fileList, '\n\n-------- ' + 'All lines of code:', linesOfCode + ' --------');
