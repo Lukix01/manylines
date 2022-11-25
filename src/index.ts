@@ -8,31 +8,40 @@ type File = {
   lines: number;
 };
 
-function Manylines(): void {
-  const args: string[] = process.argv.slice(2);
-  const path: string = args[0];
-  let fileList: File[] = [];
-  let linesOfCode: number = 0;
+class Manylines {
+  private path: string;
+  private flag: string;
+  private allLines: number = 0;
+  private fileList: File[] = [];
 
-  glob(path + '/**/*+(.tsx|.ts|.jsx|.js|.py|.java|.css|.scss)', { ignore: [ path + '/**/*node_modules/**/*' ] }, (er, files): void => {
-    for (const file of files) {
-      if (!fs.lstatSync(file).isDirectory()) {
-        const data: string = fs.readFileSync(file, { encoding: 'utf8', flag: 'r' });
-        const lines: number = data.split('\n').length;
-        fileList.push({ file, lines });
-        linesOfCode += lines;
+  constructor(args: string[]) {
+    this.path = args[0];
+    this.flag = args[1];
+  }
+
+  public execute(): void {
+    glob(this.path + '/**/*+(.tsx|.ts|.jsx|.js|.py|.java|.css|.scss)', { ignore: [ this.path + '/**/*node_modules/**/*' ] }, (er, files): void => {
+      for (const file of files) {
+        if (!fs.lstatSync(file).isDirectory()) {
+          const data: string = fs.readFileSync(file, { encoding: 'utf8', flag: 'r' });
+          const lines: number = data.split('\n').length;
+          this.fileList.push({ file, lines });
+          this.allLines += lines;
+        }
       }
-    }
 
-    fileList = fileList.sort((a, b): number => b.lines - a.lines);
+      this.fileList.sort((a, b): number => b.lines - a.lines);
 
-    if (args[1] === '--files') {
-      console.table(fileList);
-      console.log('All lines of code:', linesOfCode);
-    } else {
-      console.log('All lines of code:', linesOfCode);
-    }
-  });
+      if (this.flag === '--files') {
+        console.table(this.fileList);
+        console.log('All lines of code:', this.allLines);
+      } else {
+        console.log('All lines of code:', this.allLines);
+      }
+    });
+  }
 }
 
-Manylines();
+const manylines = new Manylines(process.argv.slice(2));
+
+manylines.execute();
