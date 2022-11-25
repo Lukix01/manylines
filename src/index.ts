@@ -8,11 +8,17 @@ type File = {
   lines: number;
 };
 
+const colors = {
+  white: '\u001B[0m',
+  orange: '\u001B[33m',
+};
+
 class Manylines {
   private path: string;
   private flag: string;
   private allLines: number = 0;
   private fileList: File[] = [];
+  private name: string = colors.orange + '/ Manylines /' + colors.white;
 
   constructor(args: string[]) {
     this.path = args[0];
@@ -34,14 +40,14 @@ class Manylines {
 
       if (this.flag === '--files') {
         console.table(this.fileList);
-        console.log('All lines of code:', this.allLines);
+        console.log(this.name, 'All lines of code:', this.allLines);
       } else {
-        console.log('All lines of code:', this.allLines);
+        console.log(this.name, 'All lines of code:', this.allLines);
       }
     });
   }
 }
 
-const manylines = new Manylines(process.argv.slice(2));
+const manylines: Manylines = new Manylines(process.argv.slice(2));
 
 manylines.execute();
