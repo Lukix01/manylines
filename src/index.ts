@@ -8,7 +8,7 @@ type File = {
   lines: number;
 };
 
-export default function Manylines(): void {
+function Manylines(): void {
   const args: string[] = process.argv.slice(2);
   const path: string = args[0];
   let fileList: File[] = [];
