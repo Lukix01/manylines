@@ -27,7 +27,8 @@ export default function Manylines(): void {
     fileList = fileList.sort((a, b): number => b.lines - a.lines);
 
     if (args[1] === '--files') {
-      console.log(fileList, '\n\n-------- ' + 'All lines of code:', linesOfCode + ' --------');
+      console.table(fileList);
+      console.log('All lines of code:', linesOfCode);
     } else {
       console.log('All lines of code:', linesOfCode);
     }
