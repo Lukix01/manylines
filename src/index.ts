@@ -40,10 +40,9 @@ class Manylines {
 
       if (this.flag === '--files') {
         console.table(this.fileList);
-        console.log(this.name, 'All lines of code:', this.allLines);
-      } else {
-        console.log(this.name, 'All lines of code:', this.allLines);
       }
+
+      console.log(this.name, 'All lines of code:', this.allLines);
     });
   }
 }
@@ -51,3 +50,5 @@ class Manylines {
 const manylines: Manylines = new Manylines(process.argv.slice(2));
 
 manylines.execute();
+
+// @todo - show current path in console
